@@ -1,0 +1,113 @@
+import random
+
+def random_array(panjang, nilai_minimal, nilai_maximal):
+    return [random.randint(nilai_minimal, nilai_maximal) for _ in range(panjang)]
+
+def print_array(arr):
+    print("Data Array:")
+    print(arr)
+
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n - 1):
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+def merge_sort(arr):
+    if len(arr) > 1:
+        tengah = len(arr) // 2
+        kiri_tengah = arr[:tengah]
+        kanan_tengah = arr[tengah:]
+        
+        merge_sort(kiri_tengah)
+        merge_sort(kanan_tengah)
+        
+        i = j = k = 0
+        
+        while i < len(kiri_tengah) and j < len(kanan_tengah):
+            if kiri_tengah[i] < kanan_tengah[j]:
+                arr[k] = kiri_tengah[i]
+                i += 1
+            else:
+                arr[k] = kanan_tengah[j]
+                j += 1
+            k += 1
+        
+        while i < len(kiri_tengah):
+            arr[k] = kiri_tengah[i]
+            i += 1
+            k += 1
+        
+        while j < len(kanan_tengah):
+            arr[k] = kanan_tengah[j]
+            j += 1
+            k += 1
+
+def binary_search(arr, target):
+    bawah = 0
+    atas = len(arr) - 1
+    
+    while bawah <= atas:
+        tengah = (bawah + atas) // 2
+        if arr[tengah] == target:
+            return tengah
+        elif arr[tengah] < target:
+            bawah = tengah + 1
+        else:
+            atas = tengah - 1
+    
+    return -1
+
+# Main program
+array_length = 10
+min_value = 0
+max_value = 500
+
+while True:
+    print("\nMenu:")
+    print("1. Tampilkan data random")
+    print("2. Tampilkan Sorting data random Bubble sort")
+    print("3. Tampilkan Sorting data random Merge sort")
+    print("4. Carilah data tengah dengan menggunakan Binary Search")
+    print("0. Keluar")
+
+    choice = input("Masukkan pilihan Anda: ")
+
+    if choice == "1":
+        data = generate_random_array(array_length, min_value, max_value)
+        print_array(data)
+
+    elif choice == "2":
+        data = generate_random_array(array_length, min_value, max_value)
+        print("Data sebelum sorting:")
+        print_array(data)
+        bubble_sort(data)
+        print("Data setelah sorting:")
+        print_array(data)
+
+    elif choice == "3":
+        data = generate_random_array(array_length, min_value, max_value)
+        print("Data sebelum sorting:")
+        print_array(data)
+        merge_sort(data)
+        print("Data setelah sorting:")
+        print_array(data)
+
+    elif choice == "4":
+        data = generate_random_array(array_length, min_value, max_value)
+        print("Data sebelum sorting:")
+        print_array(data)
+        merge_sort(data)
+        print("Data setelah sorting:")
+        print_array(data)
+        target = int(input("Masukkan nilai yang ingin dicari: "))
+        index = binary_search(data, target)
+        if index != -1:
+            print("Nilai ditemukan di indeks", index)
+        else:
+            print("Nilai tidak ditemukan")
+
+    elif choice == "0":
+      print("Terimakasih")
+      break
